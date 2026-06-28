@@ -21,7 +21,7 @@ Perfect for surf, bhop, KZ, or competitive servers where players want to spectat
 
 * **Real-time Key Overlay**: Displays W, A, S, D, Jump, and Duck states instantly.
 * **Optional Action Tracking**: Toggable HUD rows for SHIFT and mouse clicks (M1/M2).
-* **Dynamic Speedometer**: Tracks absolute 2D velocity. The numbers automatically shift color dynamically based on speed thresholds (slower speed = cool colors, higher speed = hot/fast colors).
+* **Dynamic Speedometer**: Tracks absolute 2D velocity. The numbers automatically shift color dynamically based on speed thresholds.
 * **RGB Rainbow Mode**: Fully customizable overlay colors, including a dynamic rainbow shifting color effect.
 * **Persistent Settings**: Automatically creates a `configs/player_data.json` folder on creation. Settings save automatically and persist across server restarts and map changes.
 * **Enterprise-Grade Architecture**: Designed using OOP sub-command modules for easy maintenance and zero redundant CPU overhead.
@@ -30,10 +30,10 @@ Perfect for surf, bhop, KZ, or competitive servers where players want to spectat
 
 ## 🛠️ Dependencies
 
-Before installing, ensure your game server has the modern CS2 server management framework installed:
+Before installing, ensure your game server has these installed:
 
-1. **Metamod:Source** (Development Build 2.0+)
-2. **CounterStrikeSharp** (Latest stable release)
+1. <a href="https://www.sourcemm.net/downloads.php?branch=dev" target="_blank">**Metamod:Source** (Development Build 2.0+)</a>
+2. <a href="https://github.com/roflmuffin/CounterStrikeSharp/releases" target="_blank">**CounterStrikeSharp** (Latest stable release)</a>
 
 ---
 
@@ -57,8 +57,8 @@ Players interact with the plugin entirely via chat commands using the `!wasd` pr
 | **`!wasd`** | Toggle Overlay | Toggles the main WASD overlay UI completely on or off. |
 | **`!wasd help`** | Help Menu | Prints an interactive menu explaining all subcommands. |
 | **`!wasd speed`** | Toggle Speedometer | Toggles the 2D speedometer display line at the bottom. |
-| **`!wasd shift`** | Toggle Shift Row | Toggles whether the SHIFT tracking row is visible. |
-| **`!wasd mouse`** | Toggle Click Row | Toggles whether Left/Right click (`M1` / `M2`) tracking is visible. |
+| **`!wasd shift`** | Toggle Shift Logging | Toggles whether the SHIFT tracking visible. |
+| **`!wasd mouse`** | Toggle Click Logging | Toggles whether Left/Right click (`M1` / `M2`) tracking is visible. |
 | **`!wasd reset`** | Reset Overlay Preferences | Resets the overlays settings back to the default |
 | **`!wasd color <name>`** | Change Color | Updates your overlay text color. <br> *Options:* `rainbow`, `white`, `lightblue`, `blue`, `purple`, `magenta`, `red`, `orange`, `yellow`, `green`, `aqua`, `pink`. |
 
