@@ -6,6 +6,16 @@ Perfect for surf, bhop, KZ, or competitive servers where players want to spectat
 
 ---
 
+## 💡 Motivation & Use Cases
+
+This plugin was engineered to bridge the gap between player input and visual telemetry. It serves as an essential tool for several distinct environments:
+
+* **🎬 Content Creation & Tutorials**: Perfect for recording movement guides, trick jumps, or complex utility lineups where precise input timing (like jump-throws or specific run-clears) needs to be completely transparent to viewers.
+* **🧠 Individual Practice**: An invaluable addition to private local or dedicated practice servers, allowing players to instantly analyze their own deadzones, counter-strafing windows, and velocity preservation.
+* **📈 Server Analytics & Spectating**: Enhances community engagement on custom game servers by giving spectating players a crystal-clear window into how top-tier movers manipulate their velocity vectors in real time.
+
+---
+
 ## ✨ Showcase
 <div>
   <img src="https://raw.githubusercontent.com/Benjamin-Wall/CS2-WASD/main/.github/assets/gifs/cs2-wasd-showcase.gif" alt="WASD Overlay & Speedometer Showcase"/>
