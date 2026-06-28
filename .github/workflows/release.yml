@@ -29,8 +29,9 @@ jobs:
         # Create the full recursive folder layout mirroring the CS2 server directory tree
         mkdir -p staging/addons/counterstrikesharp/plugins/cs2-wasd
         
-        # Copy your compiled binary straight into the deep target folder
-        cp cs2-wasd/bin/Release/net10.0/cs2-wasd.dll staging/addons/counterstrikesharp/plugins/cs2-wasd/
+        # This searches your entire build output directory for the compiled .dll file 
+        # and moves it to the target folder automatically, regardless of subfolders or .NET version!
+        find . -type f -name "cs2-wasd.dll" -path "*/bin/Release/*" -exec cp {} staging/addons/counterstrikesharp/plugins/cs2-wasd/ \;
         
         # Move into staging so the zip file starts directly at the 'addons' root level
         cd staging
