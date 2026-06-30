@@ -1,27 +1,34 @@
+using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Modules.Entities;
+using CounterStrikeSharp.API.Modules.Utils;
 
 namespace cs2_wasd;
 
 public static class UtilitiesHelper
 {
+    #region "Game Methods"
     public static void SendToggleMessage(CCSPlayerController player, string featureName, bool isEnabled)
     {
-        string color = isEnabled ? "\x04" : "\x02";
+        char color = isEnabled ? ChatColors.Green : ChatColors.DarkRed;
         string status = isEnabled ? "enabled!" : "disabled.";
-        player.PrintToChat($" {color}[WASD]\x01 {featureName} {status}");
+        player.PrintToChat($" {color}[WASD]{ChatColors.White} {featureName} {status}");
     }
 
     public static void PrintHelpMenu(CCSPlayerController player, List<BaseSubCommand> subCommands)
     {
-        player.PrintToChat(" \x04[WASD Overlay - Help Menu]\x01");
-        player.PrintToChat(" \x05!wasd\x01 - Toggles the core WASD key overlay on/off.");
+        player.PrintToChat($" {ChatColors.Green}[WASD Overlay - Help Menu]");
+        player.PrintToChat($" {ChatColors.Olive}!wasd{ChatColors.White} - Toggles the core WASD key overlay on/off.");
 
         foreach (var cmd in subCommands)
         {
-            player.PrintToChat($" \x05!wasd {cmd.UsageExample}\x01 - {cmd.Description}");
+            player.PrintToChat($" {ChatColors.Olive}!wasd {cmd.UsageExample}{ChatColors.White} - {cmd.Description}");
         }
     }
 
+    #endregion
+
+    #region "Mathematical Methods"
     public static string GetRainbowHexColor(PlayerSettings settings)
     {
         settings.CurrentRainbowHue = (settings.CurrentRainbowHue + 1.5) % 360.0;
@@ -48,4 +55,5 @@ public static class UtilitiesHelper
         int g = (int)Math.Round((clampedSpeed / 250.0) * 255.0);
         return $"#{r:X2}{g:X2}00";
     }
+    #endregion
 }

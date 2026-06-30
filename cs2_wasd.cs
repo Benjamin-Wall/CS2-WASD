@@ -2,6 +2,7 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Utils;
 using cs2_wasd.Commands;
 
 namespace cs2_wasd;
@@ -10,11 +11,14 @@ public class cs2_wasd : BasePlugin
 {
     // Plugin Configuration (Needed for CounterStrikeSharp)
     public override string ModuleName => "WASD Overlay Plugin";
-    public override string ModuleVersion => "1.0.0";
+    public override string ModuleVersion => "1.0.3";
     public override string ModuleAuthor => "BenjaminWall";
     public override string ModuleDescription => "Displays a real-time WASD overlay with additional settings.";
 
     // Plugin Initialisation
+    public CCSGameRules? GameRules;
+    public bool GameRulesInitialized;
+
     public Dictionary<ulong, PlayerSettings> PlayerSettings = new();
     public readonly List<BaseSubCommand> SubCommands = new();
     public string SaveFilePath = "";
@@ -51,7 +55,29 @@ public class cs2_wasd : BasePlugin
         SubCommands.Add(new ColorCommand());
 
         RegisterListener<Listeners.OnTick>(OnTick);
+        RegisterListener<Listeners.OnMapStart>(OnMapStartHandler);
+
+        if (hotReload)
+        {
+            InitializeGameRules();
+        }
     }
+
+    private void OnMapStartHandler(string mapName)
+    {
+        GameRules = null;
+       GameRulesInitialized = false;
+    }
+
+    private void InitializeGameRules()
+    {
+        if (GameRulesInitialized) return;
+
+        var gameRulesProxy = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules").FirstOrDefault();
+        GameRules = gameRulesProxy?.GameRules;
+        GameRulesInitialized = GameRules != null;
+    }
+
 
     [ConsoleCommand("css_wasd", "Toggles the WASD key overlay or its sub-features.")]
     public void OnWasdCommand(CCSPlayerController? player, CommandInfo command)
@@ -87,12 +113,29 @@ public class cs2_wasd : BasePlugin
         else
         {
             // Command was not found so give feedback in the chat
-            player.PrintToChat(" \u0004[WASD]\x01 Command argument not recognized!");
-            player.PrintToChat(" \u0004[WASD]\x01 Type \x05!wasd help\x01 to see all available options.");
+            player.PrintToChat($" {ChatColors.Green}[WASD]{ChatColors.White} Command argument not recognized!");
+            player.PrintToChat($" {ChatColors.Green}[WASD]{ChatColors.White} Type {ChatColors.Olive}!wasd help{ChatColors.White} to see all available options.");
         }
     }
 
     private void OnTick()
+    {
+        //Fix: stops the overlay "flickering" every game second
+        if (!GameRulesInitialized)
+        {
+            InitializeGameRules();
+            return;
+        }
+
+        if (GameRules != null)
+        {
+            GameRules.GameRestart = GameRules.RestartRoundTime < Server.CurrentTime;
+        }
+
+        DrawOverlay(this);
+    }
+
+    private void DrawOverlay(cs2_wasd plugin)
     {
         foreach (var player in Utilities.GetPlayers())
         {
@@ -101,7 +144,7 @@ public class cs2_wasd : BasePlugin
                 continue;
 
             // If the player doesnt have any settings or the overlay is disabled then skip and not continue any further
-            if (!PlayerSettings.TryGetValue(player.SteamID, out var settings) || !settings.OverlayEnabled)
+            if (!plugin.PlayerSettings.TryGetValue(player.SteamID, out var settings) || !settings.OverlayEnabled)
                 continue;
 
             // If the player is not physically in the world then skip and not continue any further
@@ -111,7 +154,7 @@ public class cs2_wasd : BasePlugin
 
             // Get the button states of the current player
             ulong buttons = movementServices.Buttons.ButtonStates[0];
-            
+
             // If the overlay color is "RAINBOW_MODE" (a special color mode) then we want to handle that with utilities helper otherwise just use the overlay color the player defined
             string activeColor = settings.OverlayColor == "RAINBOW_MODE" ? UtilitiesHelper.GetRainbowHexColor(settings) : settings.OverlayColor;
 

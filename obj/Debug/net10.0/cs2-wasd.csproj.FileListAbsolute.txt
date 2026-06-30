@@ -10,3 +10,4 @@ C:\Users\benja\source\repos\cs2-wasd\obj\Debug\net10.0\cs2-wasd.dll
 C:\Users\benja\source\repos\cs2-wasd\obj\Debug\net10.0\refint\cs2-wasd.dll
 C:\Users\benja\source\repos\cs2-wasd\obj\Debug\net10.0\cs2-wasd.pdb
 C:\Users\benja\source\repos\cs2-wasd\obj\Debug\net10.0\ref\cs2-wasd.dll
+C:\Users\benja\source\repos\cs2-wasd\obj\Debug\net10.0\cs2-wasd.sourcelink.json

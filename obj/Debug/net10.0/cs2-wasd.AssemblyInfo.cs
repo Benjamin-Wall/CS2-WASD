@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cs2-wasd")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b46ee605a87be9e05f18a48e24cf554995e6e7e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62216a36d314616e7a60787589f44d732ce54dc0")]
 [assembly: System.Reflection.AssemblyProductAttribute("cs2-wasd")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cs2-wasd")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

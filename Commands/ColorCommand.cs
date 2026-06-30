@@ -1,5 +1,6 @@
 ﻿using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,7 @@ namespace cs2_wasd.Commands
         {
             if (command.ArgCount < 3)
             {
-                player.PrintToChat(" \u0004[WASD]\x01 Usage: \x05!wasd color <color_name>\x01");
+                player.PrintToChat($" {ChatColors.Green}[WASD]{ChatColors.White} Usage: {ChatColors.Olive}!wasd color <color_name>");
                 return;
             }
 
@@ -26,14 +27,14 @@ namespace cs2_wasd.Commands
             if (plugin.AllowedColors.TryGetValue(chosenColor, out string? hexCode))
             {
                 settings.OverlayColor = hexCode;
-                player.PrintToChat($" \u0004[WASD]\x01 Your overlay color has been updated to \x05{chosenColor}\x01!");
+                player.PrintToChat($" {ChatColors.Green}[WASD]{ChatColors.White} Your overlay color has been updated to {ChatColors.Olive}{chosenColor}{ChatColors.White}!");
                 FileHelper.SaveDataToFile(plugin.SaveFilePath, plugin.PlayerSettings);
             }
             else
             {
                 string validList = string.Join(", ", plugin.AllowedColors.Keys);
-                player.PrintToChat($" \u0002[WASD]\x01 '\x05{chosenColor}\x01' is not a valid color name.");
-                player.PrintToChat($" \u0004[WASD]\x01 Valid options: \x05{validList}\x01");
+                player.PrintToChat($" {ChatColors.DarkRed}[WASD]{ChatColors.White} '{ChatColors.Olive}{chosenColor}{ChatColors.White}' is not a valid color name.");
+                player.PrintToChat($" {ChatColors.Green}[WASD]{ChatColors.White} Valid options: {ChatColors.Olive}{validList}");
             }
         }
     }

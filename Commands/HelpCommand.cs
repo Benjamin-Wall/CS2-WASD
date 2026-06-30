@@ -1,5 +1,6 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Utils;
 
 namespace cs2_wasd;
 
@@ -11,12 +12,12 @@ public class HelpCommand : BaseSubCommand
 
     public override void Execute(PlayerSettings settings, CCSPlayerController player, CommandInfo command, cs2_wasd plugin)
     {
-        player.PrintToChat(" \x04[WASD Overlay - Help Menu]\x01");
-        player.PrintToChat(" \x05!wasd\x01 - Toggles the core WASD key overlay on/off.");
+        player.PrintToChat($" {ChatColors.Green}[WASD Overlay - Help Menu]");
+        player.PrintToChat($" {ChatColors.Olive}!wasd{ChatColors.White} - Toggles the core WASD key overlay on/off.");
 
         foreach (var cmd in plugin.SubCommands)
         {
-            player.PrintToChat($" \x05!wasd {cmd.UsageExample}\x01 - {cmd.Description}");
+            player.PrintToChat($" {ChatColors.Olive}!wasd {cmd.UsageExample}{ChatColors.White} - {cmd.Description}");
         }
     }
 }
