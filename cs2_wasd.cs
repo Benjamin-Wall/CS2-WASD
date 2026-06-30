@@ -4,6 +4,7 @@ using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Utils;
 using cs2_wasd.Commands;
+using System.Reflection;
 
 namespace cs2_wasd;
 
@@ -11,7 +12,7 @@ public class cs2_wasd : BasePlugin
 {
     // Plugin Configuration (Needed for CounterStrikeSharp)
     public override string ModuleName => "WASD Overlay Plugin";
-    public override string ModuleVersion => "1.0.4";
+    public override string ModuleVersion => "1.0.5";
     public override string ModuleAuthor => "BenjaminWall";
     public override string ModuleDescription => "Displays a real-time WASD overlay with additional settings.";
 
@@ -46,13 +47,18 @@ public class cs2_wasd : BasePlugin
         // Load the player settings
         PlayerSettings = FileHelper.LoadDataFromFile(SaveFilePath);
 
-        // Register each of the sub commands (E.G !wasd [help], !wasd [speed])
-        SubCommands.Add(new HelpCommand());
-        SubCommands.Add(new SpeedCommand());
-        SubCommands.Add(new MouseCommand());
-        SubCommands.Add(new ShiftCommand());
-        SubCommands.Add(new ResetCommand());
-        SubCommands.Add(new ColorCommand());
+
+        // Scan the executing assembly for classes inheriting from BaseSubCommand
+        var commandTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(BaseSubCommand).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+
+        foreach (var type in commandTypes)
+        {
+            // Attempt to create the instance and if it inherits BaseSubCommand assign it to a temp variable
+            if (Activator.CreateInstance(type) is BaseSubCommand subCommandInstance)
+            {
+                SubCommands.Add(subCommandInstance);
+            }
+        }
 
         RegisterListener<Listeners.OnTick>(OnTick);
         RegisterListener<Listeners.OnMapStart>(OnMapStartHandler);
