@@ -11,7 +11,7 @@ public class cs2_wasd : BasePlugin
 {
     // Plugin Configuration (Needed for CounterStrikeSharp)
     public override string ModuleName => "WASD Overlay Plugin";
-    public override string ModuleVersion => "1.0.3";
+    public override string ModuleVersion => "1.0.4";
     public override string ModuleAuthor => "BenjaminWall";
     public override string ModuleDescription => "Displays a real-time WASD overlay with additional settings.";
 
