@@ -36,6 +36,7 @@
 ehthumbs.db
 Thumbs.db
 
-
-.vs/
 bin/
+obj/
+*.user
+.vs/
